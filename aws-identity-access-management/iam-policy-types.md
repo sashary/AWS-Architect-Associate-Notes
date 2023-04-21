@@ -1,0 +1,56 @@
+# IAM Policy Types
+- A policy is an object that defines the permissions of an IAM identity or an AWS resource.
+- Contains permissions that explicitly allow or deny access to certain AWS services.
+    - Granular in nature, provides access control to specific API actions as well as the AWS resources the policy should be applied to.
+        - Examples include API actions such as "denying an API action to create or delete functions" or "access only to requests that come from a specific IP range".
+- Can be done via JSON or through the visual editor
+
+## Standalone vs Inline Policy
+- Standalone policy
+    - Remains unchanged even if you delete its associated IAM identity.
+    - Does not have a strict 1:1 relationship to its associated identity.
+- Inline policy
+    - Automatically deleted if you delete the associated identity.
+    - Has a strict 1:1 relationship to its associated IAM identity.
+
+## IAM Policy Types
+- Identity-based Policies
+    - A type of policy that you attach to an IAM Identity.
+    - Two types:
+        - Managed Policies (AWS-managed OR Customer-managed)
+            - Standalone identity policy that can be attached to multiple IAM identities.
+            - Can either be AWS-managed or Customer-managed. Refer to [IAM Identities](iam-identities.md#iam-identities) for an explanation of the differences.
+        - Inline Policies
+            - Maintains a strict 1:1 relationship between a policy and an IAM Identity.
+            - Deleted if the identity is deleted.
+- Resource-based Policies
+    - Attaches an inline policy to a specific AWS resource.
+    - Types include:
+        - S3 Bucket Policy - grants IAM Identities (including other AWS accounts) access permissions for your bucket and its objects.
+        - SQS Access Policy - grants IAM Identities (including other AWS accounts) access to poll the queue while you maintain control.
+        - IAM Role Trust Policy (Also called trust relationship policy document) - declares the trusted entities that can assume the role as well as the access conditions. They grant permissions to the principal or an IAM identity that is specified in the policy.
+            - Principals can be in the same AWS account as the resource or in other accounts.
+- Permissions Boundaries
+    - Defines the maximum permissions that an identity-based policy can grant to an IAM entity.
+    - Does not explicitly grant permissions, just sets a clear boundary to ensure that a given IAM policy will not over-provision the permissions to your AWS resources.
+    - In short, a permission boundary makes sure that an IAM entity is only able to perform actions that are allowed by the identity-based policy (say the IAM User or IAM Role policies) and its permission boundaries.
+        - This means that if a policy allows an IAM User to delete items from a specific DynamoDB table, if the permission boundaries does not grant the right, then the User cannot make an IAM entity with that permission.
+- AWS Service Control Policies (SCPs)
+    - Related to AWS organizations service.
+    - Defines the maximum permissions for account members of an organization or organization unit.
+    - Limits the permissions that identity-based policies or resource-based policies grant to the IAM users or roles within the AWS account.
+    - Similar to Permission Boundaries, with some caveats (see next bullet point)
+    - Differences between a regular IAM policy and an SCP:
+        - SCP cannot explicitly grant permissions.
+        - IAM policies cannot restrict the AWS root account, while an SCP can affect all IAM identities, including the root user.
+- S3 Access Control Lists (ACLs)
+    - Related to Amazon S3 service.
+    - Controls which principals in other AWS accounts can access a particular bucket.
+    - Cannot grant permissions to entities within the same account.
+    - These are cross-account permission policies that grant certain permissions to a specified principal that you define.
+        - Does not use regular JSON policy document structure.
+- Session Policies
+    - Limits the permission that an identity-based policy grants to a particular session.
+    - Works like Permissions Boundaries - sets a limit of what kind of permission a session has, without granting permissions.
+    - The permissions of a session based policy come from identity-based policies and resource-based policy.
+        - If there's an explicitly deny in any of the policies, the it will effectively override any allowed permissions.

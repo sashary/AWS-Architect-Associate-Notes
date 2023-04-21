@@ -1,0 +1,56 @@
+# IAM Identities
+- Controls access to AWS resources.
+- A <ins>Policy</ins> contains a list of permissions that allows an entity to do a series of tasks.
+    - You can organize IAM Users into an IAM Group and associate a policy on the group for easier management.
+    - You can configure an IAM Role to AWS resources such as EC2 Instances, Lambda Functions, etc.
+    - Two different types of policies:
+        - AWS-managed policy:
+            - Managed by Amazon
+            - Cannot be fully customized
+            - Has AWS-Managed Policies for Job Functions that can be readily used, such as:
+                - Administrator
+                - Support User
+                - Security Auditor
+                - Network Administrator
+                - Developer Power User
+                - Billing
+                - and others....
+        - Customer-managed policy:
+            - Managed by the customer
+            - Can be fully customized
+            - Have to create a policy for a particular job function
+
+## 3 Types of Identities
+
+- IAM User
+    - An entity that represents an actual person or service.
+    - Can interact with AWS resources such as AWS CLI, API, or Management Web console.
+    - Provides the ability to sign in to the Management Console have programmatic access to AWS APIs.
+    - Consists of a name, password, and access key pair.
+        - Access key pair consists of an {Access Key ID, Secret Access Key}.
+            - used for programmatic access to AWS CLI, APIs, SDKs, and CDKs.
+    - You can grant permissions by attaching existing permissions using an IAM-managed policy or a customer-managed policy.
+- IAM Group
+    - A group of IAM users. This makes the users inside inherit the groups policy and permissions.
+    - A single user can belong to multiple groups.
+    - Cannot be nested!
+        - IAM groups cannot contain other groups.
+    - No default user group that automatically contains all the IAM Users in your AWS account.
+- IAM Role
+    - A role that AWS resources can assume.
+    - Similar to IAM User, but:
+        - Intended to be assumed by one or more AWS resources.
+        - No long-term credentials (no Access Keys, name, password, etc).
+    - A role can be used by a user/resource in the same or different AWS account. This is called a <ins>cross-account IAM Role</ins>.
+        - An external user authenticated by an external identity provider can also use an IAM Role.
+        - Can also be used by your web identity, Open ID Connect, or SAML 2.0, including Amazon Cognito.
+    - Different types of roles as well:
+        - Cross-account role
+            - Grants access to your resources in one account to a trusted principal in a different AWS account.
+            - Primary way to grant cross-account access in a multi-account cloud architecture.
+        - AWS service role
+            - Assumed by an AWS service or application to perform actions in your account on your behalf.
+            - Limited to your AWS account and cannot be used to grant access to AWS services in other accounts.
+            - The custom applications hosted in Amazon EC2 can assume an AWS service role to perform certain actions. They can retrieve temporary security credentials to access other AWS services or securely execute operations.
+        - AWS service-linked role
+            - A predefined role that is directly linked to an AWS service. They contain all the permission that the service requires to invoke other AWS services on your behalf.
