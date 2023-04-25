@@ -6,9 +6,7 @@
 - [IAM Policy Structure](iam-policy-structure.md)
     - [IAM Policy Structure Evaluation Logic](iam-policy-evaluation-logic.md)
 
----
 ## Overview
----
 - IAM helps securely control and manage access to various AWS resources.
 - Two primary functions:
     - Identity : Authentication

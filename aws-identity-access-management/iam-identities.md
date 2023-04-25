@@ -25,11 +25,11 @@
 - IAM User
     - An entity that represents an actual person or service.
     - Can interact with AWS resources such as AWS CLI, API, or Management Web console.
-    - Provides the ability to sign in to the Management Console have programmatic access to AWS APIs.
+    - Provides the ability to sign in to the Management Console and have programmatic access to AWS APIs.
     - Consists of a name, password, and access key pair.
         - Access key pair consists of an {Access Key ID, Secret Access Key}.
             - used for programmatic access to AWS CLI, APIs, SDKs, and CDKs.
-    - You can grant permissions by attaching existing permissions using an IAM-managed policy or a customer-managed policy.
+    - You can grant permissions by attaching existing permissions using an AWS-managed policy or a customer-managed policy.
 - IAM Group
     - A group of IAM users. This makes the users inside inherit the groups policy and permissions.
     - A single user can belong to multiple groups.

@@ -13,5 +13,5 @@
     2. Process the explicit ALLOW statements for identity-based or resource-based policy
         - May override the explicit ALLOW with the implicit DENY if theres a Permissions Boundary, Session Policies, or Service Control Policies (SCPs)
     3. An explicit DENY in any policy overrides any type of ALLOW actions.    
-    ![policy-evaluation-logic](policy-evaluation-logic.bmp)
+    ![policy-evaluation-logic](images/policy-evaluation-logic.bmp)
         -  Explicit Deny > Explicit Allow > Implicit Deny > ~~Implicit Allow~~ (does not exist)
